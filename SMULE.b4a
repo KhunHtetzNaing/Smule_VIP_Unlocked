@@ -1,0 +1,294 @@
+﻿Version=6.5
+NumberOfModules=0
+Build1=Default,com.htetznaing.singhack
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~'************ Google Play Services Base (end) ************~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************
+IconFile=
+NumberOfFiles=5
+File1=fb.png
+File2=icon.png
+File3=lay1.bal
+File4=LP.zip
+File5=My.zip
+NumberOfLibraries=8
+Library1=core
+Library2=firebaseadmob
+Library3=phone
+Library4=abzipunzip
+Library5=mlfiles
+Library6=floatingactionbutton
+Library7=xmllayoutbuilder
+Library8=clipboard
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Smule VIP Unlocked
+	#VersionCode: 1
+	#VersionName: 1.0
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+	#AdditionalRes: C:\Users\Ht3tzN4ing\Documents\B4A Projects\Temp Mail\FloatingButton, de.amberhome.objects.floatingactionbutton
+	#AdditionalRes: ..\resource
+#End Region
+
+Sub Process_Globals
+Dim ad1,ad2 As Timer
+End Sub
+
+Sub Globals
+Dim imv As ImageView
+	Dim ph As Phone
+Dim b1,b2,b3 As Button
+Dim lfoot As Label
+Dim Banner As AdView
+Dim Interstitial As InterstitialAd
+Dim ab As Label
+Dim OS As String
+Dim zip As ABZipUnzip
+Dim fb ,fb1 As FloatingActionButton
+Dim res As XmlLayoutBuilder
+Dim copy As BClipboard
+	Dim ml As MLfiles
+Dim rs As String
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+		Activity.LoadLayout("Lay1")
+	fb.Icon = res.GetDrawable("ic_add_white_24dp")
+	fb.HideOffset = 100%y - fb.Top
+	fb.Hide(False)
+	fb.Show(True)
+	
+	fb1.Icon = res.GetDrawable("about")
+	fb1.HideOffset = 100%y - fb.Top
+	fb1.Hide(False)
+	fb1.Show(True)
+	
+	Banner.Initialize2("Banner","ca-app-pub-4173348573252986/8554888553",Banner.SIZE_SMART_BANNER)
+	Dim height As Int
+	If GetDeviceLayoutValues.ApproximateScreenSize < 6 Then
+		'phones
+		If 100%x > 100%y Then height = 32dip Else height = 50dip
+	Else
+		'tablets
+		height = 90dip
+	End If
+	Activity.AddView(Banner, 0dip, 100%y - height, 100%x, height)
+	Banner.LoadAd
+		
+	Interstitial.Initialize("Interstitial","ca-app-pub-4173348573252986/1031621755")
+		Interstitial.LoadAd
+		
+		ad1.Initialize("ad1",100)
+		ad1.Enabled = False
+		ad2.Initialize("ad2",15000)
+		ad2.Enabled = True
+	
+	Select ph.SdkVersion
+   Case 2 : OS = "1.1"
+   Case 3 : OS = "1.5"
+   Case 4 : OS = "1.6"
+   Case 5 : OS = "2.0"
+   Case 6 : OS = "2.0.1"
+   Case 7 : OS = "2.1"
+   Case 8 : OS = "2.2"
+   Case 9 : OS = "2.3 - 2.3.2"
+   Case 10 : OS = "	2.3.3 - 2.3.7" ' 2.3.3 or 2.3.4
+   Case 11 : OS = "3.0"
+   Case 12 : OS = "3.1"
+   Case 13 : OS = "3.2"
+   	Case 14 : OS = "	4.0.1 - 4.0.2"
+		Case 15 : OS = "4.0.3 - 4.0.4"
+			Case 16 : OS = "	4.1.x"
+				Case 17 : OS = "	4.2.x"
+					Case 18 : OS = 	"4.3.x"
+						Case 19 : OS = "	4.4 - 4.4.4"
+							Case 21: OS = "5.0"
+								Case 22: OS = "5.1"
+									Case 23: OS = "6.0"
+										Case 24 : OS = "	7.0"
+											Case 25 : OS = "	7.1"
+								   Case Else : OS = "?"
+								   	End Select
+									
+	Activity.Color = Colors.White
+	ph.SetScreenOrientation(1)
+
+imv.Initialize("imv")
+imv.Bitmap = LoadBitmap(File.DirAssets,"icon.png")
+imv.Gravity = Gravity.FILL
+Activity.AddView(imv,50%x - 50dip  , 10dip ,  110dip  ,  110dip )
+
+b1.Initialize("b1")
+Dim b1bg As ColorDrawable
+b1bg.Initialize(Colors.Black,10)
+b1.Text = "Install Smule" 
+b1.Background = b1bg
+Activity.AddView(b1,20%x,(imv.Top+imv.Height)+3%y,60%x,50dip)
+
+b2.Initialize("b2")
+b2.Text = "Install Smule Patcher"
+b2.Background = b1bg
+Activity.AddView(b2,20%x,(b1.Top+b1.Height)+1%y,60%x,50dip)
+
+b3.Initialize("b3")
+b3.Text = "Tutorial"
+b3.Background = b1bg
+Activity.AddView(b3,20%x,(b2.Top+b2.Height)+1%y,60%x,50dip)
+
+ml.GetRoot
+If ml.HaveRoot Then
+	rs = "Rooted"
+	Else
+		rs = "No Root"
+End If
+ab.Initialize("")
+ab.Text ="Brand Name : " & ph.Manufacturer & CRLF & "Device Name : " & ph.Model & CRLF &  "Android Version : " & OS & CRLF &  "Produck Name : " & ph.Product & CRLF & "Root Status : "  & rs
+ab.TextColor = Colors.RGB(0,121,107)
+ab.Gravity = Gravity.CENTER
+Activity.AddView(ab,0%x,(b3.Top+b3.Height)+1%y,100%x,30%y)
+
+lfoot.Initialize("ft")
+lfoot.Text = "Powered By Myanmar Android Apps"
+lfoot.TextColor = Colors.Magenta
+lfoot.Gravity = Gravity.CENTER
+Activity.AddView(lfoot,0%x,100%y - 80dip,100%x,5%y)
+End Sub
+
+Sub fb_Click
+	ToastMessageShow("App Update နွင့္ App အသစ္ေတြ " & CRLF & "Facebook ကေနဖတ္ရူ့သိနိုင္ဖို့" &CRLF& "Myanmar Android Apps ကို Like ထားလိုက္ပါ။",True)
+Try
+ 
+     Dim Facebook As Intent
+ 
+     Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+     StartActivity(Facebook)
+ 
+Catch
+ 
+     Dim i As Intent
+     i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+     StartActivity(i)
+ 
+End Try
+End Sub
+
+Sub fb1_Click
+Dim ShareIt As Intent
+copy.clrText
+copy.setText("#SmuleVipUnlocked For All Android Deveices!" &CRLF & "Download Free at : www.htetznaing.com" &CRLF & " #Ht3tzN4ing" &CRLF & " #MyanmarAndroidApps")
+    ShareIt.Initialize (ShareIt.ACTION_SEND,"")
+    ShareIt.SetType ("text/plain")
+    ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
+    ShareIt.PutExtra ("android.intent.extra.SUBJECT","Get Free!!")
+    ShareIt.WrapAsIntentChooser("Share App Via...")
+StartActivity (ShareIt)
+End Sub
+
+Sub l_Click
+	Dim ngoma As PhoneIntents
+	StartActivity(ngoma.OpenBrowser("http://root.360.cn"))
+End Sub
+
+Sub ft_Click
+Try
+ 
+     Dim Facebook As Intent
+ 
+     Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+     StartActivity(Facebook)
+ 
+Catch
+ 
+     Dim i As Intent
+     i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+     StartActivity(i)
+ 
+End Try
+End Sub
+
+Sub imv_Click
+		ad1.Enabled = True
+End Sub
+
+Sub b1_Click
+		ad1.Enabled = True
+	File.Copy(File.DirAssets,"My.zip", File.DirRootExternal,"My.zip")
+	Dim sd As String = File.DirRootExternal & "/"
+	zip.ABUnzip(sd & "My.zip",sd & "MyanmarAndroidApps")
+	File.Delete(File.DirRootExternal , "My.zip")
+	Dim i As Intent
+	i.Initialize(i.ACTION_VIEW,"file:///"&File.DirRootExternal&"/MyanmarAndroidApps/My.apk")
+	i.SetType("application/vnd.android.package-archive")
+	StartActivity(i)
+End Sub
+
+Sub b2_Click
+		ad1.Enabled = True
+	File.Copy(File.DirAssets,"LP.zip", File.DirRootExternal,"LP.zip")
+	Dim sd As String = File.DirRootExternal & "/"
+	zip.ABUnzip(sd & "LP.zip",sd & "MyanmarAndroidApps")
+	File.Delete(File.DirRootExternal , "LP.zip")
+	Dim i As Intent
+	i.Initialize(i.ACTION_VIEW,"file:///"&File.DirRootExternal&"/MyanmarAndroidApps/LP.apk")
+	i.SetType("application/vnd.android.package-archive")
+	StartActivity(i)
+End Sub
+
+Sub b3_Click
+	Dim pi As PhoneIntents
+	StartActivity(pi.OpenBrowser("http://www.htetznaing.com/smule_4-1-1_full/"))
+End Sub
+
+Sub Activity_Resume
+	ml.rmrf(File.DirRootExternal & "/MyanmarAndroidApps")
+End Sub
+
+Sub ad1_Tick
+If Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
+	ad1.Enabled = False
+End Sub
+
+Sub ad2_Tick
+	If Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+  Dim Answ As Int
+  If KeyCode = KeyCodes.KEYCODE_BACK Then
+    Answ = Msgbox2("If you want to get new updates on  Facebook? Please Like " &CRLF & "Myanmar Android Apps Page!","Attention!", "Yes", "", "No",LoadBitmap(File.DirAssets,"fb.png" ))
+    If Answ = DialogResponse.NEGATIVE Then
+	ad1.Enabled = True
+      Return False
+    End If
+  End If
+  If Answ = DialogResponse.POSITIVE Then
+	ad1.Enabled = True
+	Try
+ 
+     Dim Facebook As Intent
+ 
+     Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+     StartActivity(Facebook)
+ 
+Catch
+ 
+     Dim i As Intent
+     i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+     StartActivity(i)
+ 
+End Try
+  Return False
+  End If
+End Sub
